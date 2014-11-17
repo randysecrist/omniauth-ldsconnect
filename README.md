@@ -26,7 +26,28 @@ From inside your app do
 require 'omniauth'
 require 'omniauth-ldsconnect'
 
-provider :ldsconnect, App.settings.ldsconnect['key'], App.settings.ldsconnect['secret']
+use OmniAuth::Builder do
+  provider :ldsconnect, App.settings.ldsconnect['key'], App.settings.ldsconnect['secret']
+end
+
+# User authorization (Authorization class not included)
+get '/auth/:name/callback' do
+  auth = request.env['omniauth.auth']
+  unless @auth = Authorization.find_from_auth(auth)
+    @auth = Authorization.create_from_auth!(auth, current_user)
+  end
+  session['user_key'] = @auth.user.key
+  redirect to('/')
+end
+
+get '/auth/failure' do
+  "Authorization failure"
+end
+
+get '/logout' do
+  session['user_key'] = nil
+  redirect to('/')
+end
 ```
 
 Note, getting the configuration may differ a bit.  If you have issues with SSL cert verification, the easy but incorrect thing to do is test with verification off.  Simply pass this to the omniauth provider:

@@ -30,6 +30,13 @@ use OmniAuth::Builder do
   provider :ldsconnect, App.settings.ldsconnect['key'], App.settings.ldsconnect['secret']
 end
 
+# (User class not included)
+helpers do
+  def current_user
+    @current_user ||= User.find(session['user_key']) if session['user_key']
+  end
+end
+
 # User authorization (Authorization class not included)
 get '/auth/:name/callback' do
   auth = request.env['omniauth.auth']

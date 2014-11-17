@@ -1,4 +1,4 @@
-# Omniauth::LDSConnect
+# Omniauth::Ldsconnect
 
 This is a OmniAuth strategy for authenticating to LDS Connect.  To
 use it, you'll need to sign up for an OAuth2 Application ID and Secret on the
@@ -20,7 +20,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+From inside your app do
+
+```ruby
+require 'omniauth'
+require 'omniauth-ldsconnect'
+
+provider :ldsconnect, App.settings.ldsconnect['key'], App.settings.ldsconnect['secret']
+```
+
+Note, getting the configuration may differ a bit.  If you have issues with SSL cert verification, the easy but incorrect thing to do is test with verification off.  Simply pass this to the omniauth provider:
+
+```ruby
+{:client_options => {:ssl => {verify: false}}}
+```
 
 ## Contributing
 

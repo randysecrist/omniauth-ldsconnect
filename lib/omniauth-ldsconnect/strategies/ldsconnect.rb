@@ -11,10 +11,10 @@ module OmniAuth
       DEFAULT_SCOPE = ''
 
       option :client_options, {
-        site: 'https://ldsconnect.org',
-        authorize_url: '/dialog/authorize',
-        token_url: '/oauth/token',
-        profile_url: '/api/ldsorg/me'
+        site: 'https://lds.io',
+        authorize_url: '/api/oauth3/authorize',
+        token_url: '/api/oauth3/token',
+        profile_url: '/api/oauth3/accounts'
       }
 
       option :token_params, {

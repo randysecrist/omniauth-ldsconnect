@@ -8,13 +8,13 @@ module OmniAuth
     class Ldsconnect < OmniAuth::Strategies::OAuth2
       class NoAuthorizationCodeError < StandardError; end
 
-      DEFAULT_SCOPE = ''
+      DEFAULT_SCOPE = 'me'
 
       option :client_options, {
         site: 'https://lds.io',
-        authorize_url: '/api/oauth3/authorize',
-        token_url: '/api/oauth3/token',
-        profile_url: '/api/oauth3/accounts'
+        authorize_url: '/api/oauth3/authorization_dialog',
+        token_url: '/api/oauth3/access_token',
+        profile_url: '/api/ldsio/accounts'
       }
 
       option :token_params, {
